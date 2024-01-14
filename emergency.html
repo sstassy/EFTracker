@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pippin</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Outfit:wght@600&family=Poppins&family=Shrikhand&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="dashPage">
+            <nav>
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="logo.png" alt="Logo">
+                    </a>
+                </div>
+                <div class="title">Emergency Funds Tracker</div>
+                <div class="nav-links">
+                    <ul>
+                        <div class="nav-text">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="emergency.html">Dashboard</a></li>
+                            <li><a href="maps.html">Maps</a></li>
+                            <li><a href="account.html">Account</a></li>
+                            <li><a href="faqs.html">FAQs</a></li>
+                        </div>
+                    </ul>
+                </div>  
+            </nav>
+            <div class="dashboard-section">
+                <h2>Emergency Fund Tracker Dashboard</h2>
+                <br>
+                <!-- Total Emergency Fund Card -->
+                <style>
+        
+        #transactionForm button {
+            margin-left: 27px; 
+            margin-top: 30px;
+        }
+        #depositForm button{
+            margin-left: 27px; 
+            margin-top: 20px;
+        }
+        #totalAmount,
+        #monthlyGoal,
+        #monthlySaved {
+            font-family: "Outfit", sans-serif; 
+        }
+    </style>
+    
+        <!-- Total Emergency Fund Card -->
+        <div class="card">
+            <h3>Total Emergency Fund</h3>
+            <p>Amount: $<span id="totalAmount">0.00</span></p>
+        </div>
+
+        <!-- Monthly Savings Card -->
+        <div class="card">
+            <h3>Monthly Savings Goal</h3>
+            <p>Goal: $<span id="monthlyGoal">0.00</span></p>
+            <p>Saved: $<span id="monthlySaved">500.00</span></p> 
+
+        </div>
+
+        <!-- Transactions Log-->
+        <div class="card">
+            <h3>Recent Transactions</h3>
+            <ul id="transactionList">
+                <!-- Transaction items will be dynamically added here -->
+            </ul>
+
+            <!-- Form for Adding Transactions -->
+            <form id="transactionForm">
+                <label for="transactionAmount">Transaction Amount: $</label>
+                <input type="number" step="0.01" id="transactionAmount" required>
+                <button type="submit">Add Transaction</button>
+            </form>
+        </div>
+
+        <!-- Deposit Money Card -->
+        <div class="card">
+            
+            <br>
+            <br>
+            <h3>Deposit Money</h3>
+            
+            <!-- Form for Depositing Money -->
+            <form id="depositForm">
+                <label for="depositAmount">Deposit Amount: $</label>
+                <input type="number" step="0.01" id="depositAmount" required>
+                <button type="submit">Deposit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Script for handling transactions and deposit forms -->
+    <script class="text">
+        var totalAmountElement = document.getElementById('totalAmount');
+        totalAmountElement.textContent = '5000.00';  // Replace with actual data
+
+        var monthlyGoalElement = document.getElementById('monthlyGoal');
+        monthlyGoalElement.textContent = '1000.00';  // Replace with actual data
+
+        var monthlySavedElement = document.getElementById('monthlySaved');
+        monthlySavedElement.textContent = '500.00';  // Replace with actual data
+
+        var transactionListElement = document.getElementById('transactionList');
+        var transactions = ['Transaction 1: $9.00', 'Transaction 2: $20.00', 'Transaction 3: $2.00'];
+        transactions.forEach(function(transaction) {
+            var li = document.createElement('li');
+            li.textContent = transaction;
+            transactionListElement.appendChild(li);
+        });
+
+        var transactionForm = document.getElementById('transactionForm');
+        transactionForm.addEventListener('submit', function(event) {
+            event.preventDefault();  
+
+            // Get transaction amount from the form input
+            var transactionAmountInput = document.getElementById('transactionAmount');
+            var transactionAmount = parseFloat(transactionAmountInput.value);
+
+            // Add the new transaction to the list
+            var newTransaction = 'Transaction ' + (transactions.length + 1) + ': $' + transactionAmount.toFixed(2);
+            transactions.push(newTransaction);
+
+            // Update the transaction list on the dashboard
+            var li = document.createElement('li');
+            li.textContent = newTransaction;
+            transactionListElement.appendChild(li);
+
+            // Clear the input field
+            transactionAmountInput.value = '';
+        });
+
+        var depositForm = document.getElementById('depositForm');
+        depositForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get deposit amount from the form input
+            var depositAmountInput = document.getElementById('depositAmount');
+            var depositAmount = parseFloat(depositAmountInput.value);
+
+            // Update total amount on the dashboard
+            var currentTotalAmount = parseFloat(totalAmountElement.textContent);
+            var newTotalAmount = currentTotalAmount + depositAmount;
+
+            // Update the total amount on the dashboard
+            totalAmountElement.textContent = newTotalAmount.toFixed(2);
+
+            // Clear the input field
+            depositAmountInput.value = '';
+        });
+        </script>
+        <br>
+        <br>
+        <p> Deposit funds into your savings anytime and log your spending using the recent transactions feature.</p>
+
+
+        </div>
+    </body>
+</html>
