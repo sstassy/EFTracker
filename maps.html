@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pippin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Outfit:wght@600&family=Poppins&family=Shrikhand&display=swap" rel="stylesheet">
+    <style>
+        .leaflet-container { font-size: 1rem; }
+        #mapLegend {
+            position:absolute; top:89; bottom:0; width:50%;
+            bottom: -145px;
+            left: 68%;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 600;
+            background-color: #fff;
+            width: 300px;
+        }
+        #orange {
+            color: #F7972F;
+        }
+        #blue {
+            color: #38A9DC;
+        }
+        #red {
+            color: #D63E2B;
+        }
+        #pink {
+            color: #FFC5F5;
+        }
+    </style> 
+</head>
+<body>
+    <div class="mapPage">
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="title1">
+                 <div class="title1">Emergency Funds Tracker</div>
+            </div>
+            
+            <div class="nav-links">
+                <ul>
+                    <div class="nav-text">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="emergency.html">Dashboard</a></li>
+                        <li><a href="maps.html">Maps</a></li>
+                        <li><a href="account.html">Account</a></li>
+                        <li><a href="faqs.html">FAQs</a></li>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    <div class="maps-section">
+                <h2> Map of Important Locations Around You </h2>
+                <p>&nbsp;</p>
+            </div>
+            <div class="faq2">
+                <p>For your saftey, refer to this page for whenever you need any kind of financial, medical, or physical aid.</p>
+                <br>
+                <br>
+            </div>
+           <iframe class="map" src="pippin_map.html" width="850" height="650" frameborder="0" style="border:1;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+    <div id="mapLegend">
+        <div class = 'legend' id="orange">Banks<br></div>
+        <div class = 'legend' id="blue">Police Stations<br></div>
+        <div class = 'legend' id="red">Fire Stations<br></div>
+        <div class = 'legend' id="pink">Hospitals</div>
+    </div>
+    
+</body>
+
+</html>
