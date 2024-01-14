@@ -1,0 +1,318 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.main{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #3b7ca3, #AED1E6)
+}
+.mapPage{
+    width: 100%;
+    height: 150vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #3b7ca3, #AED1E6)
+}
+
+.faqPage {
+    width: 100%;
+    height: 170vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #3b7ca3, #AED1E6)
+}
+.dashPage{
+      width: 100%;
+    height: 160vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #3b7ca3, #AED1E6)  
+}
+nav{
+    width: 80%;
+    position: sticky;
+    margin: 20px auto;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    margin-left: -90px;
+    margin-top: -130px;
+}
+
+.logo img{
+    width: 300px;
+}
+
+.title{
+    margin-top: -50px;
+    margin-left: -180px;
+    font-family: "Nanum Gothic", sans-serif;
+    color: #fff;
+}
+.title1{
+    margin-top: -22.7px;
+    margin-left: -90px;
+    font-family: "Nanum Gothic", sans-serif;
+    color: #fff;
+}
+
+.additional-text {
+    font-family: "Outfit", sans-serif;
+    text-align: center;
+}
+
+.header-1 {
+    font-family: "Outfit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    margin-top: 50px;
+    text-align: center;
+    color:#025C77;
+    font-size: 36px;
+}
+
+.header-2 {
+    font-family: "Nanum Gothic", sans-serif;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+}
+
+.home-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    margin-block-start: 2%;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+}
+
+.nav-links {
+    flex: 1;
+    text-align: right;
+    margin-top: -160px;
+}
+
+.nav-links ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.nav-links a:visited {
+    font-family: "Nanum Gothic", sans-serif;
+    color: #fff;
+}
+
+.nav-text {
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    margin-right: -100px;
+}
+
+.nav-links a {
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 22px;
+    color: #fff;
+    text-decoration: none;
+    margin-right: -10px;
+}
+
+.login-container {
+    width: 800px;
+    height: 300px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: "Nanum Gothic", sans-serif;
+}
+
+.welcome-text {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+    color:#025C77
+}
+
+.fa-input {
+    font-family: "FontAwesome";
+    font-style: normal;
+    color: #000000;
+}
+
+input {
+    padding: 12px;
+    width: 350px;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-indent: 5px;
+    background-color: #e5f1f8;
+    font-family: "Nanum Gothic", sans-serif;
+}
+
+.envelope-icon {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.lock-icon {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+button {
+    padding: 10px 160px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 24px;
+    background-color: #025C77;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 9px;
+    align-items: center;
+}
+
+.get-started{
+    margin: 30px auto;
+    border-radius: 8px;
+    text-align: center;
+    font-family: "Nanum Gothic", sans-serif;
+}
+
+.get-started button {
+    padding: 10px 50px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 24px;
+    background-color: #025C77;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 9px;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.mapText{
+    margin-top: 80px;
+    margin-right: 80px;
+    font-family: "Outfit", sans-serif;
+}
+
+.map{
+    border-radius: 30px;
+    margin-top: 0px;
+    margin-left: 60px;
+    border: 10px solid #AED1E6;
+}
+.legend{
+    border: 10px solid #AED1E6;
+    font-family: "Outfit", sans-serif;
+}
+
+.faq-section h2 {
+    color: #025C77;
+    text-align: center;
+    font-size: 40px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    margin-top: -70px;
+    font-family: "Outfit", sans-serif;
+}
+
+.faq h3 {
+    color: #025C77;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    font-family: "Outfit", sans-serif;
+}
+
+.faq p{
+    color: #fff;
+    font-size: 17px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    font-family: "Nanum Gothic", sans-serif;
+    line-height: 40px
+}
+
+.faq2 p{
+    color: #fff;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    font-family: "Nanum Gothic", sans-serif;
+    line-height: 40px
+}
+
+.text p {
+    color: #fff;
+    text-align: center;
+    font-family: "Outfit", sans-serif;
+    line-height: 40px
+        
+}
+.maps-section h2{
+    color: #025C77;
+    text-align: left;
+    font-size: 40px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    margin-top: -60px;
+    font-family: "Outfit", sans-serif;   
+}
+
+.dashboard-section h2{
+    color: #025C77;
+    text-align: left;
+    font-size: 40px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    margin-top: -60px;
+    font-family: "Outfit", sans-serif;
+    
+}
+.dashboard-section h3{
+    color: #025C77;
+    text-align: left;
+    font-size: 30px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    font-family: "Outfit", sans-serif;
+    
+}
+.dashboard-section p, label, li, p{
+    color: #fff;
+    text-align: left;
+    font-size: 30px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    font-family: "Outfit", sans-serif;
+    
+}
