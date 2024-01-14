@@ -1,35 +1,374 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Pippin</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Outfit:wght@600&family=Poppins&family=Shrikhand&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="main">
-            <nav>
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="logo.png" alt="Logo">
-                    </a>
-                </div>
-                <div class="title">Emergency Funds Tracker</div>
-                <div class="nav-links">
-                    <ul>
-                        <div class="nav-text">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="emergency.html">Dashboard</a></li>
-                            <li><a href="maps.html">Maps</a></li>
-                            <li><a href="account.html">Account</a></li>
-                            <li><a href="faqs.html">FAQs</a></li>
-                        </div>
-                    </ul>
-                </div>
-            </nav>
+<head>
+    <title>Pippin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Outfit:wght@600&family=Poppins&family=Shrikhand&display=swap" rel="stylesheet">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>
+        L_NO_TOUCH = false;
+        L_DISABLE_3D = false;
+    </script>
+    <style>html, body {width: 100%;height: 90%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        #map_95c4c4ffd16b57d70f7b8e826144b57a {
+            position: relative;
+            width: 80.0%;
+            height: 80.0%;
+            left: 10.0%;
+            top: 10.0%;
+            margin-top: -700px;
+        }
+        .leaflet-container { font-size: 1rem; }
+        #mapLegend {
+            position: absolute;
+            bottom: 5px;
+            left: 40%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            font-family: "Nanum Gothic", sans-serif;
+            font-weight: 600;
+            background-color: #fff;
+            width: 300px;
+        }
+        #orange {
+            color: #F7972F;
+        }
+        #blue {
+            color: #38A9DC;
+        }
+        #red {
+            color: #D63E2B;
+        }
+        #pink {
+            color: #FFC5F5;
+        }
+    </style> 
+</head>
+<body>
+    <div class="main">
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="title">
+                .
+            </div>
             
-
-        </div>
-    </body>
+            <div class="nav-links">
+                <ul>
+                    <div class="nav-text">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="emergency.html">Dashboard</a></li>
+                        <li><a href="maps.html">Maps</a></li>
+                        <li><a href="account.html">Account</a></li>
+                        <li><a href="faqs.html">FAQs</a></li>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="folium-map" id="map_95c4c4ffd16b57d70f7b8e826144b57a" ></div>
+    <div id="mapLegend">
+        <div id="orange">Banks<br></div>
+        <div id="blue">Police Stations<br></div>
+        <div id="red">Fire Stations<br></div>
+        <div id="pink">Hospitals</div>
+    </div>
+</body>
+<script> 
+    var map_95c4c4ffd16b57d70f7b8e826144b57a = L.map(
+        "map_95c4c4ffd16b57d70f7b8e826144b57a",
+        {
+            center: [42.983612, -81.249725],
+            crs: L.CRS.EPSG3857,
+            zoom: 12.5,
+            zoomControl: true,
+            preferCanvas: false,
+        });   
+    var tile_layer_2e495f456d7a8628b299874872800006 = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}); 
+        tile_layer_2e495f456d7a8628b299874872800006.addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);  
+    var marker_6a56c51795777fd93e10f86383bc1d90 = L.marker(
+        [42.9602596, -81.22547160644876],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);   
+    var icon_4d0581595c07517cc5b977da2e8b9ea5 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"});
+    marker_6a56c51795777fd93e10f86383bc1d90.setIcon(icon_4d0581595c07517cc5b977da2e8b9ea5); 
+var popup_0c7d93a7f50770375ba66efde40b7afd = L.popup({"maxWidth": "100%"});      
+        var html_90fad93815f35dbd31d29855b1721400 = $(`<div id="html_90fad93815f35dbd31d29855b1721400" style="width: 100.0%; height: 100.0%;">Victoria Hospital, 800, Commissioners Road East, London, Ontario, N6A 5W9, Canada</div>`)[0];
+        popup_0c7d93a7f50770375ba66efde40b7afd.setContent(html_90fad93815f35dbd31d29855b1721400)
+marker_6a56c51795777fd93e10f86383bc1d90.bindPopup(popup_0c7d93a7f50770375ba66efde40b7afd); 
+    var marker_7fc80bdb7dddfa5525554602152dee3c = L.marker([43.0005946, -81.25455738126183],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a)   
+    var icon_f1656df9a33d3ff69981b3c2c90b4815 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"});
+    marker_7fc80bdb7dddfa5525554602152dee3c.setIcon(icon_f1656df9a33d3ff69981b3c2c90b4815);    
+var popup_5e86858c6d9d29cc0c238c4315993c3d = L.popup({"maxWidth": "100%"});          
+        var html_12fbb8ef729547bb9f256b8b4571cd4b = $(`<div id="html_12fbb8ef729547bb9f256b8b4571cd4b" style="width: 100.0%; height: 100.0%;">St. Joseph's Hospital, 268, Grosvenor Street, London, Ontario, N6A 4V2, Canada</div>`)[0];
+        popup_5e86858c6d9d29cc0c238c4315993c3d.setContent(html_12fbb8ef729547bb9f256b8b4571cd4b);
+marker_7fc80bdb7dddfa5525554602152dee3c.bindPopup(popup_5e86858c6d9d29cc0c238c4315993c3d);  
+    var marker_10905a846e92bfd6333e656769bb3e1f = L.marker(
+        [42.9800192, -81.2423277],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);  
+    var icon_fe24299cb9a74bd7a2e19b5c76379a7f = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_10905a846e92bfd6333e656769bb3e1f.setIcon(icon_fe24299cb9a74bd7a2e19b5c76379a7f);   
+var popup_9aeb1d8873cdf763bc3573bc8c1fea7f = L.popup({"maxWidth": "100%"});           
+        var html_aa3bc676c6fd08f3a94f457c2c57029a = $(`<div id="html_aa3bc676c6fd08f3a94f457c2c57029a" style="width: 100.0%; height: 100.0%;">Instacoin ATM, 236, Wellington Street, London, Ontario, N6B 2N5, Canada</div>`)[0];
+        popup_9aeb1d8873cdf763bc3573bc8c1fea7f.setContent(html_aa3bc676c6fd08f3a94f457c2c57029a)
+marker_10905a846e92bfd6333e656769bb3e1f.bindPopup(popup_9aeb1d8873cdf763bc3573bc8c1fea7f); 
+    var marker_3901b91cd6df4cd99104f7b6fa5efa77 = L.marker(
+        [43.0113346, -81.2413147],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_849df40818bf6563a32a36276734962b = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_3901b91cd6df4cd99104f7b6fa5efa77.setIcon(icon_849df40818bf6563a32a36276734962b);
+var popup_e74acc6f938fe4747b6c438728f0455a = L.popup({"maxWidth": "100%"});
+        var html_f2277bf1033c9c6c5b2fea5d39964a3b = $(`<div id="html_f2277bf1033c9c6c5b2fea5d39964a3b" style="width: 100.0%; height: 100.0%;">CIBC, Huron Street, London, Ontario, N5Y 4K4, Canada</div>`)[0];
+        popup_e74acc6f938fe4747b6c438728f0455a.setContent(html_f2277bf1033c9c6c5b2fea5d39964a3b);
+marker_3901b91cd6df4cd99104f7b6fa5efa77.bindPopup(popup_e74acc6f938fe4747b6c438728f0455a);
+    var marker_5979c766171f01b03fa2554793496daf = L.marker(
+        [43.00423205, -81.1748682097903],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_d41719fb66878034b5bd5a0e533e15e2 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_5979c766171f01b03fa2554793496daf.setIcon(icon_d41719fb66878034b5bd5a0e533e15e2);
+var popup_08b011703be424184b2c7e2710589b9c = L.popup({"maxWidth": "100%"});
+       var html_482a5c946d81a85109f03a33f9196af5 = $(`<div id="html_482a5c946d81a85109f03a33f9196af5" style="width: 100.0%; height: 100.0%;">CIBC, Clarke Road, Pottersburg, London, Ontario, N5W 5G1, Canada</div>`)[0];
+        popup_08b011703be424184b2c7e2710589b9c.setContent(html_482a5c946d81a85109f03a33f9196af5);
+marker_5979c766171f01b03fa2554793496daf.bindPopup(popup_08b011703be424184b2c7e2710589b9c);
+    var marker_b81a8a25827834957d01806e8e85d049 = L.marker(
+        [43.00840465, -81.33745233095237],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_b905152f74a332118ab63bd1fdf5f2e4 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_b81a8a25827834957d01806e8e85d049.setIcon(icon_b905152f74a332118ab63bd1fdf5f2e4);
+var popup_af66ecc3e3b8eb90e1f3de27f5fb7383 = L.popup({"maxWidth": "100%"});
+        var html_1af439839b976f4a89e4b90f1c05a119 = $(`<div id="html_1af439839b976f4a89e4b90f1c05a119" style="width: 100.0%; height: 100.0%;">CIBC, Seagull Road, London, Ontario, N6G 0A4, Canada</div>`)[0];
+        popup_af66ecc3e3b8eb90e1f3de27f5fb7383.setContent(html_1af439839b976f4a89e4b90f1c05a119);
+marker_b81a8a25827834957d01806e8e85d049.bindPopup(popup_af66ecc3e3b8eb90e1f3de27f5fb7383);
+    var marker_95917e55c993d7439e7a5eb6c862ffa9 = L.marker(
+        [43.0277993, -81.27714011043594],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_b0531d46911d8509fe000078e4411440 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_95917e55c993d7439e7a5eb6c862ffa9.setIcon(icon_b0531d46911d8509fe000078e4411440);
+var popup_c8a727fd117fa7f9553d77294e0e3b85 = L.popup({"maxWidth": "100%"});
+        var html_ba8ba1fed50242fb06b990f11ad46fe2 = $(`<div id="html_ba8ba1fed50242fb06b990f11ad46fe2" style="width: 100.0%; height: 100.0%;">CIBC, Fanshawe Park Road East, Northdale, London, Ontario, N6G 3Y9, Canada</div>`)[0];
+        popup_c8a727fd117fa7f9553d77294e0e3b85.setContent(html_ba8ba1fed50242fb06b990f11ad46fe2);
+marker_95917e55c993d7439e7a5eb6c862ffa9.bindPopup(popup_c8a727fd117fa7f9553d77294e0e3b85);
+    var marker_a933278c8245bede40352c3c1f43ecf0 = L.marker(
+        [42.9958418, -81.25298075238285],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a); 
+    var icon_89ca99ce9324b690a6c210e52cc96057 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_a933278c8245bede40352c3c1f43ecf0.setIcon(icon_89ca99ce9324b690a6c210e52cc96057);
+var popup_6ba60860f96b9541dd5ccc92ab6214ff = L.popup({"maxWidth": "100%"}); 
+        var html_687c233eaecbdc3af65d447e909731a2 = $(`<div id="html_687c233eaecbdc3af65d447e909731a2" style="width: 100.0%; height: 100.0%;">CIBC, Oxford Street East, London, Ontario, N6A 3H3, Canada</div>`)[0];
+        popup_6ba60860f96b9541dd5ccc92ab6214ff.setContent(html_687c233eaecbdc3af65d447e909731a2);
+marker_a933278c8245bede40352c3c1f43ecf0.bindPopup(popup_6ba60860f96b9541dd5ccc92ab6214ff);
+var marker_ff26427727910065d9dc4f65c82d95b9 = L.marker(
+        [42.9782513, -81.32207695620224],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_6c1b0c375ae80a0b7006815c1578c37d = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_ff26427727910065d9dc4f65c82d95b9.setIcon(icon_6c1b0c375ae80a0b7006815c1578c37d);
+var popup_18843894a2f1da6e0e52ce12590ad518 = L.popup({"maxWidth": "100%"});
+        var html_11255c149aa69ac210fdf9a5c3040618 = $(`<div id="html_11255c149aa69ac210fdf9a5c3040618" style="width: 100.0%; height: 100.0%;">CIBC, Royal York Road, London, Ontario, N6H 4G6, Canada</div>`)[0];
+        popup_18843894a2f1da6e0e52ce12590ad518.setContent(html_11255c149aa69ac210fdf9a5c3040618);
+marker_ff26427727910065d9dc4f65c82d95b9.bindPopup(popup_18843894a2f1da6e0e52ce12590ad518);
+    var marker_b215ca3bf47b45aa37eb1e821754425a = L.marker(
+        [42.95902975, -81.260406696504],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_8860b8958bcad0d3efb27327d6ed1647 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_b215ca3bf47b45aa37eb1e821754425a.setIcon(icon_8860b8958bcad0d3efb27327d6ed1647);
+var popup_8c904013993a25f3be6e804dbaddca44 = L.popup({"maxWidth": "100%"});
+        var html_8aa6f7d1ee8c253a4f04721e7d7b4e7f = $(`<div id="html_8aa6f7d1ee8c253a4f04721e7d7b4e7f" style="width: 100.0%; height: 100.0%;">CIBC, Base Line Road East, Cleardale, London, Ontario, N6J 2M8, Canada</div>`)[0];
+        popup_8c904013993a25f3be6e804dbaddca44.setContent(html_8aa6f7d1ee8c253a4f04721e7d7b4e7f);
+marker_b215ca3bf47b45aa37eb1e821754425a.bindPopup(popup_8c904013993a25f3be6e804dbaddca44);
+    var marker_03e2a6ba554d77f8459eec6511f7db02 = L.marker(
+        [42.9325052, -81.2258371],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_d9b4ec0e80e8697aba29d23f9bc84057 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_03e2a6ba554d77f8459eec6511f7db02.setIcon(icon_d9b4ec0e80e8697aba29d23f9bc84057);
+var popup_94c8eb85ec0a0d0145b25cd4b2a787fd = L.popup({"maxWidth": "100%"});
+        var html_5610656ce351a5189e144f1b3f21a4ca = $(`<div id="html_5610656ce351a5189e144f1b3f21a4ca" style="width: 100.0%; height: 100.0%;">CIBC, Bradley Avenue, London, Ontario, N6E 1W4, Canada</div>`)[0];
+        popup_94c8eb85ec0a0d0145b25cd4b2a787fd.setContent(html_5610656ce351a5189e144f1b3f21a4ca);
+marker_03e2a6ba554d77f8459eec6511f7db02.bindPopup(popup_94c8eb85ec0a0d0145b25cd4b2a787fd);
+    var marker_482b0a596cc73f3c1fa026afef67b52f = L.marker(
+        [42.934634349999996, -81.28104929405833],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_decbf1e323e17ccca8ac855e97028401 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_482b0a596cc73f3c1fa026afef67b52f.setIcon(icon_decbf1e323e17ccca8ac855e97028401);
+var popup_14550a20d4e5189b81deaf66ad4d1a62 = L.popup({"maxWidth": "100%"});
+        var html_4c32bd0e9671322a386f1143acd291ee = $(`<div id="html_4c32bd0e9671322a386f1143acd291ee" style="width: 100.0%; height: 100.0%;">CIBC, Wonderland Road South, London, Ontario, N6J 4G7, Canada</div>`)[0];
+        popup_14550a20d4e5189b81deaf66ad4d1a62.setContent(html_4c32bd0e9671322a386f1143acd291ee);
+marker_482b0a596cc73f3c1fa026afef67b52f.bindPopup(popup_14550a20d4e5189b81deaf66ad4d1a62);
+    var marker_47eeb858cd423737d2d3d8432e24e4a6 = L.marker(
+        [43.0083111, -81.2608318],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_e0767026ef273420b8f5b14311e05604 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_47eeb858cd423737d2d3d8432e24e4a6.setIcon(icon_e0767026ef273420b8f5b14311e05604);
+var popup_c784f36e48ce08d2fbd13f011e9413d0 = L.popup({"maxWidth": "100%"});
+        var html_a5a2f9397cc4f79b198b074f38a94434 = $(`<div id="html_a5a2f9397cc4f79b198b074f38a94434" style="width: 100.0%; height: 100.0%;">TD Canada Trust, 1137, Richmond Street, London, Ontario, N6A 3K6, Canada</div>`)[0];
+        popup_c784f36e48ce08d2fbd13f011e9413d0.setContent(html_a5a2f9397cc4f79b198b074f38a94434);
+marker_47eeb858cd423737d2d3d8432e24e4a6.bindPopup(popup_c784f36e48ce08d2fbd13f011e9413d0);
+    var marker_948b29fb250a33d60e80a18b28b890bf = L.marker(
+        [42.959185950000006, -81.33230487499392],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_6d397153793794876b1fea80cca16ce4 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_948b29fb250a33d60e80a18b28b890bf.setIcon(icon_6d397153793794876b1fea80cca16ce4);
+var popup_f95e90192ceeb89b9b0b823b4b1507f7 = L.popup({"maxWidth": "100%"});
+        var html_f28f97c01239da547cb2ae3dbbd4c097 = $(`<div id="html_f28f97c01239da547cb2ae3dbbd4c097" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Boler Road, London, Ontario, N6K 2K1, Canada</div>`)[0];
+        popup_f95e90192ceeb89b9b0b823b4b1507f7.setContent(html_f28f97c01239da547cb2ae3dbbd4c097);
+marker_948b29fb250a33d60e80a18b28b890bf.bindPopup(popup_f95e90192ceeb89b9b0b823b4b1507f7);
+    var marker_770433920cb6b60f46a0a960fa3b4475 = L.marker(
+        [42.9845049, -81.2474173],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_b323f21f47e575060706051288f66582 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_770433920cb6b60f46a0a960fa3b4475.setIcon(icon_b323f21f47e575060706051288f66582);
+var popup_1b78a0f7bb3b30f46e8422cfcbfc8854 = L.popup({"maxWidth": "100%"});
+        var html_a101dfa0842c5fd89d1ef5e727475e9b = $(`<div id="html_a101dfa0842c5fd89d1ef5e727475e9b" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Dundas Street, London, Ontario, N6A 1H3, Canada</div>`)[0];
+        popup_1b78a0f7bb3b30f46e8422cfcbfc8854.setContent(html_a101dfa0842c5fd89d1ef5e727475e9b);
+marker_770433920cb6b60f46a0a960fa3b4475.bindPopup(popup_1b78a0f7bb3b30f46e8422cfcbfc8854);
+    var marker_d6d64c5e66f53567179d9d478d47e879 = L.marker(
+        [43.0348888, -81.25584889068966],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_f4806b85c93679404f0012c39f05912a = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_d6d64c5e66f53567179d9d478d47e879.setIcon(icon_f4806b85c93679404f0012c39f05912a);
+var popup_6c3d9e54b5da4a18df313a73267af3ca = L.popup({"maxWidth": "100%"}); 
+        var html_8cbe0a1b700dd1a3a0f6fa2832c3f2de = $(`<div id="html_8cbe0a1b700dd1a3a0f6fa2832c3f2de" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Fanshawe Park Road East, Northdale, London, Ontario, N5X 2R1, Canada</div>`)[0];
+        popup_6c3d9e54b5da4a18df313a73267af3ca.setContent(html_8cbe0a1b700dd1a3a0f6fa2832c3f2de);
+marker_d6d64c5e66f53567179d9d478d47e879.bindPopup(popup_6c3d9e54b5da4a18df313a73267af3ca);
+    var marker_cdff205bcf3b42430d262d016138d360 = L.marker(
+        [42.99018725, -81.2723544198077],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_f1ad04b2761d1dce2540ea7e0c8a9593 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_cdff205bcf3b42430d262d016138d360.setIcon(icon_f1ad04b2761d1dce2540ea7e0c8a9593);
+var popup_5c74dac0413d8e62b7bf2c6026d99a35 = L.popup({"maxWidth": "100%"});
+        var html_f9f88e4d4e9f7fa3abcd53a4d1f92b54 = $(`<div id="html_f9f88e4d4e9f7fa3abcd53a4d1f92b54" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Platt's Lane, London, Ontario, N6H 1S5, Canada</div>`)[0];
+        popup_5c74dac0413d8e62b7bf2c6026d99a35.setContent(html_f9f88e4d4e9f7fa3abcd53a4d1f92b54);
+marker_cdff205bcf3b42430d262d016138d360.bindPopup(popup_5c74dac0413d8e62b7bf2c6026d99a35);
+    var marker_4b6534253f2b232139c686fba386056a = L.marker(
+        [42.9619914, -81.2317301],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_fb6c1da424fb5471f6d5bf25fd003ca1 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_4b6534253f2b232139c686fba386056a.setIcon(icon_fb6c1da424fb5471f6d5bf25fd003ca1);
+var popup_286dfb19dda58a72e371356668405fe3 = L.popup({"maxWidth": "100%"});
+        var html_43206b4f5852fd12dfbddbb78b62efe9 = $(`<div id="html_43206b4f5852fd12dfbddbb78b62efe9" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Base Line Road East, London, Ontario, N6C 4P6, Canada</div>`)[0];
+        popup_286dfb19dda58a72e371356668405fe3.setContent(html_43206b4f5852fd12dfbddbb78b62efe9);
+marker_4b6534253f2b232139c686fba386056a.bindPopup(popup_286dfb19dda58a72e371356668405fe3);
+    var marker_10981127ad604fb0b12b944b0d124678 = L.marker(
+        [43.020113, -81.2160828],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_0b968d044e2a107b7cc8869f7eb6a746 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_10981127ad604fb0b12b944b0d124678.setIcon(icon_0b968d044e2a107b7cc8869f7eb6a746);
+var popup_ca1e8701aa9410293cd7a4239ec0721a = L.popup({"maxWidth": "100%"});
+        var html_cb5684c18bd56c5022e783fd98b62055 = $(`<div id="html_cb5684c18bd56c5022e783fd98b62055" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Highbury Avenue North, London, Ontario, N5V 3R3, Canada</div>`)[0];
+        popup_ca1e8701aa9410293cd7a4239ec0721a.setContent(html_cb5684c18bd56c5022e783fd98b62055);
+marker_10981127ad604fb0b12b944b0d124678.bindPopup(popup_ca1e8701aa9410293cd7a4239ec0721a);
+    var marker_6f4ce8a0a4c48f9f818d248867673176 = L.marker(
+        [43.00336225, -81.3030661],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_78648250be2a79d39ff091f8f23413b2 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_6f4ce8a0a4c48f9f818d248867673176.setIcon(icon_78648250be2a79d39ff091f8f23413b2);
+var popup_35ee7b65e6d9b19e0e6d2f7c2087215f = L.popup({"maxWidth": "100%"});
+        var html_3ef244d662fffb3149914d98d3bdb14b = $(`<div id="html_3ef244d662fffb3149914d98d3bdb14b" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Wonderland Road North, London, Ontario, N6G 2C3, Canada</div>`)[0];
+        popup_35ee7b65e6d9b19e0e6d2f7c2087215f.setContent(html_3ef244d662fffb3149914d98d3bdb14b);
+marker_6f4ce8a0a4c48f9f818d248867673176.bindPopup(popup_35ee7b65e6d9b19e0e6d2f7c2087215f);
+    var marker_e8bf49be30b56c04ac83f722b7f545d8 = L.marker(
+        [43.005210899999994, -81.17565066087266],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_dd345c9f8e8fc9ae3e9218654af27ec1 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_e8bf49be30b56c04ac83f722b7f545d8.setIcon(icon_dd345c9f8e8fc9ae3e9218654af27ec1);
+var popup_0526cf6d56a23bbc6cd3b473010e6db9 = L.popup({"maxWidth": "100%"});
+        var html_ee6a7d1d0ff3ed6fb2e53014b9803f94 = $(`<div id="html_ee6a7d1d0ff3ed6fb2e53014b9803f94" style="width: 100.0%; height: 100.0%;">TD Canada Trust, Clarke Road, Pottersburg, London, Ontario, N5V 1P7, Canada</div>`)[0];
+        popup_0526cf6d56a23bbc6cd3b473010e6db9.setContent(html_ee6a7d1d0ff3ed6fb2e53014b9803f94);
+marker_e8bf49be30b56c04ac83f722b7f545d8.bindPopup(popup_0526cf6d56a23bbc6cd3b473010e6db9);
+    var marker_8e2c45731e4e59c63f04733c9dd3ae14 = L.marker(
+        [43.025053549999996, -81.28240378868153],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_cd8e3a8c9a3f3806f73df327347ad25a = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "orange", "prefix": "glyphicon"});
+    marker_8e2c45731e4e59c63f04733c9dd3ae14.setIcon(icon_cd8e3a8c9a3f3806f73df327347ad25a);
+var popup_8bfb7c295d2b5a72e1421ed54ff11d01 = L.popup({"maxWidth": "100%"});
+        var html_4234e6a09dce1deaabce78785c789c4a = $(`<div id="html_4234e6a09dce1deaabce78785c789c4a" style="width: 100.0%; height: 100.0%;">TD Canada Trust, 1663, Richmond Street, London, Ontario, N6G 2N3, Canada</div>`)[0];
+        popup_8bfb7c295d2b5a72e1421ed54ff11d01.setContent(html_4234e6a09dce1deaabce78785c789c4a);
+marker_8e2c45731e4e59c63f04733c9dd3ae14.bindPopup(popup_8bfb7c295d2b5a72e1421ed54ff11d01);
+    var marker_deb1412521a992ec95a68b19db01c421 = L.marker(
+        [43.02221765, -81.21171657829676],{}
+    ).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_36629585a9f6477846fe9e4550947838 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"});
+    marker_deb1412521a992ec95a68b19db01c421.setIcon(icon_36629585a9f6477846fe9e4550947838);
+var popup_7c35cc52d179f8a695e957c3e38842df = L.popup({"maxWidth": "100%"});
+        var html_047d36d7b12d3b68ce21cfb2c189ecd9 = $(`<div id="html_047d36d7b12d3b68ce21cfb2c189ecd9" style="width: 100.0%; height: 100.0%;">London Fire Station 7, Webster Street, Huron Heights, London, Ontario, N5V 2E2, Canada</div>`)[0];
+        popup_7c35cc52d179f8a695e957c3e38842df.setContent(html_047d36d7b12d3b68ce21cfb2c189ecd9);
+marker_deb1412521a992ec95a68b19db01c421.bindPopup(popup_7c35cc52d179f8a695e957c3e38842df);
+    var marker_b05719ae038ca8e4b3d688bf4b4fda66 = L.marker(
+        [43.03732625, -81.24769307669153],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_cb1aad2427e44d1ba60c28f1a34f1bdd = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"});
+    marker_b05719ae038ca8e4b3d688bf4b4fda66.setIcon(icon_cb1aad2427e44d1ba60c28f1a34f1bdd);
+var popup_67c6143ebde112b769238ade48a4d86c = L.popup({"maxWidth": "100%"});
+        var html_ad50ff8090a20f549042f13880f84990 = $(`<div id="html_ad50ff8090a20f549042f13880f84990" style="width: 100.0%; height: 100.0%;">London Fire Station 13, Fanshawe Park Road East, Fanshawe, London, Ontario, N5X 3Z8, Canada</div>`)[0];
+        popup_67c6143ebde112b769238ade48a4d86c.setContent(html_ad50ff8090a20f549042f13880f84990);
+marker_b05719ae038ca8e4b3d688bf4b4fda66.bindPopup(popup_67c6143ebde112b769238ade48a4d86c);
+    var marker_d3344a1771bdbd62bd3ae24123495851 = L.marker(
+        [42.9905943, -81.21176566144061],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_965dc89eb4b860624aceeac50ca3bc9c = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"});
+    marker_d3344a1771bdbd62bd3ae24123495851.setIcon(icon_965dc89eb4b860624aceeac50ca3bc9c);
+var popup_379bbe8c90819ea8a291ae9c58d180bb = L.popup({"maxWidth": "100%"});   
+        var html_25e27de93b163b85369113df16ca4091 = $(`<div id="html_25e27de93b163b85369113df16ca4091" style="width: 100.0%; height: 100.0%;">London Fire Station #2, Florence Street, London, Ontario, N5W 3A6, Canada</div>`)[0];
+        popup_379bbe8c90819ea8a291ae9c58d180bb.setContent(html_25e27de93b163b85369113df16ca4091);
+marker_d3344a1771bdbd62bd3ae24123495851.bindPopup(popup_379bbe8c90819ea8a291ae9c58d180bb) ;
+    var marker_bfabe75365ad502b6dd3f8ba31d4c62c = L.marker(
+        [42.99939555, -81.24673171610169],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_b83613f3826d9474f2ed45520bd98ffe = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"});
+    marker_bfabe75365ad502b6dd3f8ba31d4c62c.setIcon(icon_b83613f3826d9474f2ed45520bd98ffe);
+var popup_bbe383064755ad03f521f07e82c7af6b = L.popup({"maxWidth": "100%"});
+        var html_5e8b50da5d948a1517ffc7e72c543f42 = $(`<div id="html_5e8b50da5d948a1517ffc7e72c543f42" style="width: 100.0%; height: 100.0%;">London Fire Station #4, Saint James Street, London, Ontario, N6A 3W4, Canada</div>`)[0];
+        popup_bbe383064755ad03f521f07e82c7af6b.setContent(html_5e8b50da5d948a1517ffc7e72c543f42);
+marker_bfabe75365ad502b6dd3f8ba31d4c62c.bindPopup(popup_bbe383064755ad03f521f07e82c7af6b);
+    var marker_6de0b581de343c1132b6d52c5c080815 = L.marker(
+        [42.986502200000004, -81.21356607447437],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_36c7aab1af6493971531504134602c24 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"});
+    marker_6de0b581de343c1132b6d52c5c080815.setIcon(icon_36c7aab1af6493971531504134602c24);
+var popup_ea15e92437b8aaa850b2e5a4636d8ce8 = L.popup({"maxWidth": "100%"});      
+        var html_9f71fc1ab9e5d478b2f29e98ae2a0d52 = $(`<div id="html_9f71fc1ab9e5d478b2f29e98ae2a0d52" style="width: 100.0%; height: 100.0%;">Police Reporting Center, Brydges Street, London, Ontario, N5W 3A6, Canada</div>`)[0];
+        popup_ea15e92437b8aaa850b2e5a4636d8ce8.setContent(html_9f71fc1ab9e5d478b2f29e98ae2a0d52);
+marker_6de0b581de343c1132b6d52c5c080815.bindPopup(popup_ea15e92437b8aaa850b2e5a4636d8ce8);
+    var marker_a02c3423e357117c24e306728abb0c02 = L.marker(
+        [42.9883105, -81.2321931],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);
+    var icon_6679c75b4a6d24de95197ecf3d436405 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"});
+    marker_a02c3423e357117c24e306728abb0c02.setIcon(icon_6679c75b4a6d24de95197ecf3d436405);  
+var popup_91d7372d32fb93b6c239273665407885 = L.popup({"maxWidth": "100%"});          
+        var html_c74f56b7bffd8b8b2114605282d84adb = $(`<div id="html_c74f56b7bffd8b8b2114605282d84adb" style="width: 100.0%; height: 100.0%;">London Police Headquarters, Dundas Street, London, Ontario, N6B 1Y8, Canada</div>`)[0];
+        popup_91d7372d32fb93b6c239273665407885.setContent(html_c74f56b7bffd8b8b2114605282d84adb);
+marker_a02c3423e357117c24e306728abb0c02.bindPopup(popup_91d7372d32fb93b6c239273665407885);
+var marker_311c0d485924f11fc0ed18f90217ffeb = L.marker(
+        [42.9253125, -81.2111469],{}).addTo(map_95c4c4ffd16b57d70f7b8e826144b57a);  
+    var icon_4fa4095587046d0bbfded48422b954b4 = L.AwesomeMarkers.icon(
+        {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"});
+    marker_311c0d485924f11fc0ed18f90217ffeb.setIcon(icon_4fa4095587046d0bbfded48422b954b4);  
+var popup_1d978a72a89a20fd541535af0e2e6d58 = L.popup({"maxWidth": "100%"});           
+        var html_80dcea9e8f542509f966e06c20e21176 = $(`<div id="html_80dcea9e8f542509f966e06c20e21176" style="width: 100.0%; height: 100.0%;">OPP Regional Office, 823, Exeter Road, London, Ontario, N6E 1W1, Canada</div>`)[0];
+        popup_1d978a72a89a20fd541535af0e2e6d58.setContent(html_80dcea9e8f542509f966e06c20e21176);
+marker_311c0d485924f11fc0ed18f90217ffeb.bindPopup(popup_1d978a72a89a20fd541535af0e2e6d58);  
+</script>
 </html>

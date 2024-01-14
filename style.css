@@ -89,7 +89,6 @@ nav{
     color: #fff;
 }
 
-
 .nav-text {
     font-family: "Nanum Gothic", sans-serif;
     font-size: 22px;
@@ -105,7 +104,6 @@ nav{
     text-decoration: none;
     margin-right: -10px;
 }
-
 
 .login-container {
     width: 800px;
@@ -123,7 +121,7 @@ nav{
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 10px;
     text-align: center;
     color:#025C77
@@ -193,4 +191,30 @@ button {
 
 a {
     text-decoration: none;
+}
+
+.map-text{
+    margin-top: 80px;
+    margin-right: 80px;
+}
+
+.faq-section h2 {
+    color: #025C77;
+    text-align: center;
+    font-size: 40px;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+    margin-top: -50px;
+}
+
+.faq h3 {
+    color: #025C77;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
+}
+
+.faq p {
+    color: #fff;
+    margin-inline-start: 5%;
+    margin-inline-end: 5%;
 }
